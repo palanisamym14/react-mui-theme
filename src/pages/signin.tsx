@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
     const navigate = useNavigate();
-    const [loginUser, { loading, error: nwError }] =
+    const [loginUser, { error: nwError }] =
         useMutation(LOGIN_MUTATION, {
             update: (_, { data: { login } }: any) => {
                 sessionStorage.setItem('token', login.token);

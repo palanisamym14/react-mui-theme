@@ -14,7 +14,7 @@ import { LoadingButton } from '@mui/lab';
 
 
 export default function ThemeUI({ primaryColor, secondaryColor, onClose }: any) {
-    const [applyTheme, { loading, error: nwError }] =
+    const [applyTheme, { loading }] =
         useMutation(THEME_APPLY_MUTATION, { onCompleted: () => onClose(), refetchQueries: [{ query: GET_THEME }] });
     const theme = createTheme({
         palette: {
