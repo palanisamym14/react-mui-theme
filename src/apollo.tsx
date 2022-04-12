@@ -7,6 +7,7 @@ import {
 } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
 
+import { getWithExpiry } from './util';
 
 const httpLink = createHttpLink({
     uri: "https://nestjs--graphql.herokuapp.com/graphql",
@@ -14,7 +15,7 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
-    const token = sessionStorage.getItem("token");
+    const token = getWithExpiry("token");
     // return the headers to the context so httpLink can read them
 
     // How do I get my react state here?

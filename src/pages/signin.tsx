@@ -7,20 +7,21 @@ import Container from '@mui/material/Container';
 import { useMutation } from '@apollo/client';
 import { LOGIN_MUTATION, GET_THEME } from '../gql/query';
 import { useNavigate } from "react-router-dom";
+import { setWithExpiry } from './../util'
 
 export default function SignIn() {
     const navigate = useNavigate();
     const [loginUser, { error: nwError }] =
         useMutation(LOGIN_MUTATION, {
             update: (_, { data: { login } }: any) => {
-                sessionStorage.setItem('token', login.token);
+                setWithExpiry('token', login.token);
                 navigate("/")
             },
             refetchQueries: [{ query: GET_THEME }]
         });
 
 
-        const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         loginUser({
